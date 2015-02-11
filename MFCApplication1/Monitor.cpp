@@ -16,6 +16,7 @@
 
 #include "MainFrm.h"
 #include "Monitor.h"
+#include "Syslog.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -28,6 +29,7 @@ __wchar_t title[2000];
 LPWSTR message = L"something";
 LPWSTR message2 = L"something";
 LPWSTR message3 = L"something";
+char message3BS[2000];
 RECT messageholder = { 0, 0, 1000, 30 };
 RECT messageholder2 = { 0, 30, 1000, 60 };
 RECT messageholder3 = { 0, 60, 1000, 90 };
@@ -36,7 +38,9 @@ CString s2;
 CString s3;
 int i = 0;
 #endif
- 
+#define _CRT_SEURE_NO_WARNINGS
+
+
 #ifdef _DEBUG
 void logMessage(LPWSTR log, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -58,6 +62,15 @@ void logMessage3(LPWSTR log, UINT msg, WPARAM wParam, LPARAM lParam)
 	s3.Format(L"%s: I %d M %d W %d L %d D %d", log, i, msg, wParam, lParam, 1234);
 	message3 = s3.GetBuffer();
 	i++;
+	size_t converted;
+	wcstombs_s(&converted, message3BS, message3, sizeof(message3BS));
+	if (converted == 0)
+	{
+		_wsetlocale(0, L"zh-CN");
+		wcstombs_s(&converted, message3BS, message3, sizeof(message3BS));
+		//_wsetlocale(0, oldlocal);
+	}
+	syslog(LOG_INFO, message3BS);
 }
 void drawDebugMessage(HDC dc)
 {
