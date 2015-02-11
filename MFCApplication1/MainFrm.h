@@ -13,7 +13,6 @@
 //
 
 #pragma once
-#include "ChildView.h"
 
 class CMainFrame : public CFrameWndEx
 {
@@ -43,20 +42,13 @@ public:
 #endif
 
 protected:  // 控件条嵌入成员
-	CMFCRibbonBar     m_wndRibbonBar;
-	CMFCRibbonApplicationButton m_MainButton;
-	CMFCToolBarImages m_PanelImages;
-	CChildView    m_wndView;
 
 // 生成的消息映射函数
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy(void);
-	afx_msg void OnSetFocus(CWnd *pOldWnd);
-	afx_msg void OnApplicationLook(UINT id);
-	afx_msg void OnUpdateApplicationLook(CCmdUI* pCmdUI);
+	afx_msg void OnPaint();
 	afx_msg void OnTimer(UINT_PTR timer);
-	afx_msg LRESULT MessageHandler(WPARAM wParam, LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
 
 };
