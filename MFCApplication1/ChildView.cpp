@@ -21,7 +21,11 @@
 #endif
 
 LPWSTR message = L"something";
-RECT messageholder = {0,0,1000,30};
+LPWSTR message2 = L"something";
+LPWSTR message3 = L"something";
+RECT messageholder = { 0, 0, 1000, 30 };
+RECT messageholder2 = { 0, 30, 1000, 60 };
+RECT messageholder3 = { 0, 60, 1000, 90 };
 // CChildView
 
 CChildView::CChildView()
@@ -62,5 +66,7 @@ void CChildView::OnPaint()
 	
 	// 不要为绘制消息而调用 CWnd::OnPaint()
 	dc.DrawText(message, &messageholder, 0);
+	dc.DrawText(message2, &messageholder2, 0);
+	dc.DrawText(message3, &messageholder3, 0);
 }
 

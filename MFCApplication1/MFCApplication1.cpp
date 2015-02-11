@@ -23,6 +23,7 @@
 #define new DEBUG_NEW
 #endif
 
+extern void setGlobalHook(HWND hwnd);
 
 // CMFCApplication1App
 
@@ -82,7 +83,7 @@ BOOL CMFCApplication1App::InitInstance()
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
 
-	//InitContextMenuManager();
+	InitContextMenuManager();
 
 	//InitKeyboardManager();
 
@@ -98,10 +99,11 @@ BOOL CMFCApplication1App::InitInstance()
 	if (!pFrame)
 		return FALSE;
 	m_pMainWnd = pFrame;
+	/*
+		WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE
+	*/
 	// 创建并加载框架及其资源
-	pFrame->LoadFrame(IDR_MAINFRAME,
-		WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, NULL,
-		NULL);
+	pFrame->LoadFrame(IDR_MAINFRAME, 0, NULL, NULL);
 
 
 
@@ -110,6 +112,7 @@ BOOL CMFCApplication1App::InitInstance()
 	// 唯一的一个窗口已初始化，因此显示它并对其进行更新
 	pFrame->ShowWindow(SW_SHOW);
 	pFrame->UpdateWindow();
+	setGlobalHook(pFrame->m_hWnd);
 	return TRUE;
 }
 
