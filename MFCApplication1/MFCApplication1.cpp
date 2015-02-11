@@ -65,8 +65,6 @@ BOOL CMFCApplication1App::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("WenxinEducation"));
 
-	InitContextMenuManager();
-
 	// 若要创建主窗口，此代码将创建新的框架窗口
 	// 对象，然后将其设置为应用程序的主窗口对象
 	CMainFrame* pFrame = new CMainFrame;
@@ -77,7 +75,7 @@ BOOL CMFCApplication1App::InitInstance()
 	pFrame->LoadFrame(IDR_MAINFRAME, 0, NULL, NULL);
 
 	// 唯一的一个窗口已初始化，因此显示它并对其进行更新
-	pFrame->ShowWindow(SW_SHOW);
+	pFrame->ShowWindow(SW_SHOW|SW_MINIMIZE);
 	pFrame->UpdateWindow();
 	return TRUE;
 }

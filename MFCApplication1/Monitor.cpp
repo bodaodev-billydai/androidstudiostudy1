@@ -23,6 +23,7 @@
 
 HWND activeHWnd = NULL;
 HWND activeHWndConfirm = NULL;
+__wchar_t title[2000];
 #ifdef _DEBUG
 LPWSTR message = L"something";
 LPWSTR message2 = L"something";
@@ -58,30 +59,35 @@ void logMessage3(LPWSTR log, UINT msg, WPARAM wParam, LPARAM lParam)
 	message3 = s3.GetBuffer();
 	i++;
 }
+void drawDebugMessage(HDC dc)
+{
+	DrawText(dc, message, (int)wcslen(message), &messageholder, 0);
+	DrawText(dc, message2, (int)wcslen(message2), &messageholder2, 0);
+	DrawText(dc, message3, (int)wcslen(message3), &messageholder3, 0);
+}
 #else
-#define  logMessage(log, ...) ((void)0)
-#define  logMessage2(log, ...) ((void)0)
+//#define  logMessage(log, ...) ((void)0)
+//#define  logMessage2(log, ...) ((void)0)
 #define  logMessage3(log, ...) ((void)0)
 #endif
 
 bool checkActiveWindow()
 {
-#ifdef _DEBUG
-	__wchar_t title[200];
-#endif
 	HWND hWnd = ::GetForegroundWindow();
 	if (activeHWndConfirm != hWnd)
 	{
-#ifdef _DEBUG
-		GetWindowText(hWnd, title, sizeof(title) / sizeof(*title));
-#endif
 		if (activeHWnd == hWnd)
 		{
+			GetWindowText(hWnd, title, sizeof(title) / sizeof(*title));
 			logMessage3(title, 0, (WPARAM)hWnd, (LPARAM)activeHWnd);
 			activeHWndConfirm = hWnd;
 			return true;
-		} else {
+		}
+		else {
+#ifdef _DEBUG
+			GetWindowText(hWnd, title, sizeof(title) / sizeof(*title));
 			logMessage(title, 0, (WPARAM)hWnd, (LPARAM)activeHWnd);
+#endif
 			activeHWnd = hWnd;
 			return true;
 		}
@@ -89,21 +95,12 @@ bool checkActiveWindow()
 		if (activeHWnd != hWnd){
 #ifdef _DEBUG
 			GetWindowText(hWnd, title, sizeof(title) / sizeof(*title));
-#endif
 			logMessage2(title, 0, (WPARAM)hWnd, (LPARAM)activeHWnd);
+#endif
 			activeHWnd = hWnd;
 			return true;
 		}
 	}
 	return false;
 }
-
-#ifdef _DEBUG
-void drawDebugMessage(HDC dc)
-{
-	DrawText(dc, message, wcslen(message), &messageholder, 0);
-	DrawText(dc, message2, wcslen(message2), &messageholder2, 0);
-	DrawText(dc, message3, wcslen(message3), &messageholder3, 0);
-}
-#endif
  

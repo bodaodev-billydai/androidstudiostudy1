@@ -65,10 +65,10 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWndEx::PreCreateWindow(cs) )
 		return FALSE;
-	cs.style = WS_OVERLAPPED | WS_THICKFRAME | WS_SYSMENU;
+	cs.style = WS_SYSMENU;// WS_OVERLAPPED |  | WS_THICKFRAME;
 
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
-	cs.dwExStyle |= WS_EX_TOOLWINDOW; // WS_EX_NOACTIVATE | WS_EX_TOPMOST;
+	cs.dwExStyle |= WS_EX_NOACTIVATE; // WS_EX_TOOLWINDOW | WS_EX_TOPMOST;
 	cs.lpszClass = AfxRegisterWndClass(0);
 	return TRUE;
 }
@@ -111,7 +111,7 @@ void CMainFrame::OnPaint()
 {
 	CPaintDC dc(this); // 用于绘制的设备上下文
 
-	// TODO:  在此处添加消息处理程序代码
+	// 在此处添加消息处理程序代码
 
 	// 不要为绘制消息而调用 CWnd::OnPaint()
 	drawDebugMessage(dc);
