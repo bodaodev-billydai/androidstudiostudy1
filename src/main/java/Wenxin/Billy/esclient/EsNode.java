@@ -49,7 +49,7 @@ public class EsNode implements AutoCloseable {
 	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
 	 * @throws Exception
 	 */
-	void createIndex() throws IOException {
+	IndexResponse createIndex() throws IOException {
 		Client client = node.client();
 
 		try {
@@ -64,8 +64,10 @@ public class EsNode implements AutoCloseable {
 					.execute()
 					// take response
 					.actionGet();
-			System.out.println(response.getId() + "====" + response.getIndex()
-					+ "====" + response.getType());
+			// System.out.println(response.getId() + "====" +
+			// response.getIndex()
+			// + "====" + response.getType());
+			return response;
 		} finally {
 			client.close();
 		}
@@ -98,9 +100,10 @@ public class EsNode implements AutoCloseable {
 					if (!source.isEmpty()) {
 						for (Iterator<Map.Entry<String, Object>> it = source
 								.entrySet().iterator(); it.hasNext();) {
+							@SuppressWarnings("unused")
 							Map.Entry<String, Object> entry = it.next();
-							System.out.println(entry.getKey() + "======="
-									+ entry.getValue());
+							// System.out.println(entry.getKey() + "======="
+							// + entry.getValue());
 
 						}
 					}

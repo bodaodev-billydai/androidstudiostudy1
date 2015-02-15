@@ -31,6 +31,7 @@ public class NodeTest extends TestCase {
 	 * Rigourous Test :-)
 	 */
 	public void testNode() {
+		System.out.println("testNode");
 		EsNode node = new EsNode();
 		node.open("elasticsearchbilly", true);
 		try {
@@ -44,5 +45,6 @@ public class NodeTest extends TestCase {
 		} catch (Exception e) {
 			fail();
 		}
+		System.out.println();
 	}
 }
