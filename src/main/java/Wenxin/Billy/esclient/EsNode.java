@@ -32,16 +32,11 @@ public class EsNode {
 	 * @throws Exception
 	 */
 	void createIndex(String clusterName) throws IOException {
-		node = nodeBuilder().clusterName(clusterName).data(false) // we create a
-																	// access
-																	// node
-																	// without
-																	// take
-																	// responsibility
-																	// to store
-																	// data
-				// .local(true) // if we test via a local node without join
-				// cluster
+		node = nodeBuilder().clusterName(clusterName)
+		// we create an access node without take responsibility to store data
+				.data(false)
+				// if we test via a local node without join cluster
+				// .local(true)
 				.node();
 		Client client = node.client();
 
@@ -54,7 +49,9 @@ public class EsNode {
 					.field("createDate", new Date()).endObject();
 			IndexResponse response = client
 					.prepareIndex("productindex", "productType").setSource(doc)
-					.execute().actionGet();
+					.execute()
+					// take response
+					.actionGet();
 			System.out.println(response.getId() + "====" + response.getIndex()
 					+ "====" + response.getType());
 		} finally {

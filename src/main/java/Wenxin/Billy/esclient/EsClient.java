@@ -15,6 +15,7 @@ import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.*;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
+import org.elasticsearch.common.settings.ImmutableSettings.Builder;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.unit.TimeValue;
@@ -25,6 +26,7 @@ import org.elasticsearch.node.*;
 import org.elasticsearch.search.SearchHit;
 
 public class EsClient {
+	private Node localNode = null;
 	private Client client = null;
 
 	/**
@@ -36,13 +38,48 @@ public class EsClient {
 	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
 	 * @throws Exception
 	 */
-	void getClient(String clusterName) {
-		// // InetAddress addr = InetAddress.getLocalHost();
-		// Settings settings = ImmutableSettings.settingsBuilder()
-		// .put("client.transport.sniff", true).put("client", true)
-		// .put("cluster.name", clusterName).build();
-		// client = new TransportClient(settings);
+	void getClient(String clusterName, String hostname, int port, boolean sniff) {
+		Builder builder = ImmutableSettings.settingsBuilder();
+		if (clusterName != null && clusterName.length() > 0) {
+			// find by cluster name
+			builder.put("cluster.name", clusterName);
+		}
+		if (sniff) {
+			// find all node in the cluster
+			builder.put("client.transport.sniff", true);
+		}
+		// start to build setting
+		Settings settings = builder.build();
+		// addr.getHostAddress()
+		client = new TransportClient(settings);
+		if (hostname != null && hostname.length() > 0) {
+			// add transport address
+			((TransportClient) client)
+					.addTransportAddress(new InetSocketTransportAddress(
+							hostname, port));
+		}
+	}
 
+	/**
+	 * 
+	 * <p>
+	 * 创建索引
+	 * </p>
+	 * 
+	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
+	 * @throws Exception
+	 */
+	void getClientByLocalHost(String clusterName, int port, boolean sniff) {
+		if (localNode == null) {
+			NodeBuilder builder = nodeBuilder()
+			// data node
+					.data(true);
+			if (clusterName != null && clusterName.length() > 0) {
+				// cluster name
+				builder.clusterName(clusterName);
+			}
+			localNode = builder.build();
+		}
 		InetAddress addr = null;
 		try {
 			addr = InetAddress.getLocalHost();
@@ -50,13 +87,17 @@ public class EsClient {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		Settings settings = ImmutableSettings.settingsBuilder()
-				.put("client.transport.sniff", true)
-				.put("cluster.name", clusterName).build();
+		Builder builder = ImmutableSettings.settingsBuilder();
+		if (sniff) {
+			// find all node in the cluster
+			builder.put("client.transport.sniff", true);
+		}
+		// start to build setting
+		Settings settings = builder.build();
 		// addr.getHostAddress()
 		client = new TransportClient(settings)
-				.addTransportAddress(new InetSocketTransportAddress(
-						"10.10.7.146", 9300));
+		// reffered
+				.addTransportAddress(new InetSocketTransportAddress(addr, 9300));
 
 	}
 
@@ -69,9 +110,24 @@ public class EsClient {
 	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
 	 * @throws Exception
 	 */
-	void releaseClient(String clusterName) {
+	void releaseClient() {
 		client.close();
+	}
 
+	/**
+	 * 
+	 * <p>
+	 * 创建索引
+	 * </p>
+	 * 
+	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
+	 * @throws Exception
+	 */
+	void releaseNode() {
+		if (localNode == null) {
+			localNode.close();
+			localNode = null;
+		}
 	}
 
 	/**
