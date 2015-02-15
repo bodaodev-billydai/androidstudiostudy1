@@ -4,4 +4,24 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>HappyRobert</servlet-name>
+  	<display-name>HappyRobert</display-name>
+  	<description></description>
+  	<servlet-class>wenxin.billy.webappsampl.HappyRobert</servlet-class>
+  	<init-param>
+  		<param-name>name</param-name>
+  		<param-value>Billy</param-value>
+  		<description>Customer</description>
+  	</init-param>
+  	<init-param>
+  		<param-name>Require</param-name>
+  		<param-value>Say hello</param-value>
+  		<description>Requirement</description>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>HappyRobert</servlet-name>
+  	<url-pattern>/HappyRobert</url-pattern>
+  </servlet-mapping>
 </web-app>
