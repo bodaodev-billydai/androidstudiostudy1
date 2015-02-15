@@ -18,7 +18,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.*;
 import org.elasticsearch.search.SearchHit;
 
-public class EsNode {
+public class EsNode implements AutoCloseable {
 
 	Node node;
 
@@ -31,13 +31,25 @@ public class EsNode {
 	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
 	 * @throws Exception
 	 */
-	void createIndex(String clusterName) throws IOException {
+	void open(String clusterName, boolean data) {
 		node = nodeBuilder().clusterName(clusterName)
 		// we create an access node without take responsibility to store data
-				.data(false)
+				.data(data)
 				// if we test via a local node without join cluster
 				// .local(true)
 				.node();
+	}
+
+	/**
+	 * 
+	 * <p>
+	 * 创建索引
+	 * </p>
+	 * 
+	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
+	 * @throws Exception
+	 */
+	void createIndex() throws IOException {
 		Client client = node.client();
 
 		try {
@@ -57,19 +69,6 @@ public class EsNode {
 		} finally {
 			client.close();
 		}
-	}
-
-	/**
-	 * 
-	 * <p>
-	 * 创建索引
-	 * </p>
-	 * 
-	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
-	 * @throws Exception
-	 */
-	void releaseClient(String clusterName) {
-		node.close();
 	}
 
 	/**
@@ -114,6 +113,12 @@ public class EsNode {
 			}
 		} finally {
 			client.close();
+		}
+	}
+
+	public void close() throws Exception {
+		if (node != null) {
+			node.close();
 		}
 	}
 }

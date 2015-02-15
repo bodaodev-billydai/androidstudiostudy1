@@ -32,13 +32,17 @@ public class NodeTest extends TestCase {
 	 */
 	public void testNode() {
 		EsNode node = new EsNode();
+		node.open("elasticsearchbilly", true);
 		try {
-			node.createIndex("elasticsearchbilly");
+			node.createIndex();
 			node.searchIndex();
 		} catch (IOException e) {
-			e.printStackTrace();
-			assertTrue(false);
+			fail();
 		}
-		assertTrue(true);
+		try {
+			node.close();
+		} catch (Exception e) {
+			fail();
+		}
 	}
 }

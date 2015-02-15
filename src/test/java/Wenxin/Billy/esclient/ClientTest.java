@@ -37,81 +37,63 @@ public class ClientTest extends TestCase {
 		String clusterName = "elasticsearchbilly";
 		String hostName = "10.10.7.146";
 		int port = 9300;
-		client.getClient(clusterName, hostName, port, true);
+		client.open(clusterName, hostName, port, true);
 		try {
 			client.createIndex();
 			client.searchIndex();
 		} catch (IOException e) {
-			e.printStackTrace();
-			assertTrue(false);
+			fail();
 		}
-		client.releaseClient();
-		assertTrue(true);
+		try {
+			client.close();
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 	/**
-	 * Rigourous Test :-)
+	 * fail case Test :-)
 	 */
 	public void testClient2() {
 		EsClient client = new EsClient();
 		String clusterName = null;
 		String hostName = "10.10.7.146";
 		int port = 9300;
-		client.getClient(clusterName, hostName, port, true);
+		client.open(clusterName, hostName, port, true);
 		try {
 			client.createIndex();
 			client.searchIndex();
 		} catch (IOException e) {
-			e.printStackTrace();
-			assertTrue(false);
+			fail();
 		} catch (NoNodeAvailableException e) {
-			assertTrue(true);
-			return;
 		}
-		client.releaseClient();
-		assertTrue(false);
+		try {
+			client.close();
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 	/**
-	 * Rigourous Test :-)
+	 * fail case Test :-)
 	 */
 	public void testClient3() {
 		EsClient client = new EsClient();
 		String clusterName = "elasticsearchbilly";
 		String hostName = null;
 		int port = 9300;
-		client.getClient(clusterName, hostName, port, true);
+		client.open(clusterName, hostName, port, true);
 		try {
 			client.createIndex();
 			client.searchIndex();
 		} catch (IOException e) {
-			e.printStackTrace();
-			assertTrue(false);
+			fail();
 		} catch (NoNodeAvailableException e) {
-			assertTrue(true);
-			return;
 		}
-		client.releaseClient();
-		assertTrue(false);
-	}
-
-	/**
-	 * Rigourous Test :-)
-	 */
-	public void testClient4() {
-		EsClient client = new EsClient();
-		String clusterName = "elasticsearchbilly";
-		int port = 9300;
-		client.getClientByLocalHost(clusterName, port, true);
 		try {
-			client.createIndex();
-			client.searchIndex();
-		} catch (IOException e) {
-			e.printStackTrace();
-			assertTrue(false);
+			client.close();
+		} catch (Exception e) {
+			fail();
 		}
-		client.releaseClient();
-		client.releaseNode();
-		assertTrue(true);
 	}
 }

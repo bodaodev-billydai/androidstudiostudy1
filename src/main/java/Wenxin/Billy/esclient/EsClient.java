@@ -25,8 +25,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.*;
 import org.elasticsearch.search.SearchHit;
 
-public class EsClient {
-	private Node localNode = null;
+public class EsClient implements AutoCloseable {
 	private Client client = null;
 
 	/**
@@ -38,7 +37,7 @@ public class EsClient {
 	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
 	 * @throws Exception
 	 */
-	void getClient(String clusterName, String hostname, int port, boolean sniff) {
+	void open(String clusterName, String hostname, int port, boolean sniff) {
 		Builder builder = ImmutableSettings.settingsBuilder();
 		if (clusterName != null && clusterName.length() > 0) {
 			// find by cluster name
@@ -57,76 +56,6 @@ public class EsClient {
 			((TransportClient) client)
 					.addTransportAddress(new InetSocketTransportAddress(
 							hostname, port));
-		}
-	}
-
-	/**
-	 * 
-	 * <p>
-	 * 创建索引
-	 * </p>
-	 * 
-	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
-	 * @throws Exception
-	 */
-	void getClientByLocalHost(String clusterName, int port, boolean sniff) {
-		if (localNode == null) {
-			NodeBuilder builder = nodeBuilder()
-			// data node
-					.data(true);
-			if (clusterName != null && clusterName.length() > 0) {
-				// cluster name
-				builder.clusterName(clusterName);
-			}
-			localNode = builder.build();
-		}
-		InetAddress addr = null;
-		try {
-			addr = InetAddress.getLocalHost();
-			// System.out.println("IP："+addr.getHostAddress()+"，主机名："+addr.getHostName()+" 启动成功！");
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-		Builder builder = ImmutableSettings.settingsBuilder();
-		if (sniff) {
-			// find all node in the cluster
-			builder.put("client.transport.sniff", true);
-		}
-		// start to build setting
-		Settings settings = builder.build();
-		// addr.getHostAddress()
-		client = new TransportClient(settings)
-		// reffered
-				.addTransportAddress(new InetSocketTransportAddress(addr, 9300));
-
-	}
-
-	/**
-	 * 
-	 * <p>
-	 * 创建索引
-	 * </p>
-	 * 
-	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
-	 * @throws Exception
-	 */
-	void releaseClient() {
-		client.close();
-	}
-
-	/**
-	 * 
-	 * <p>
-	 * 创建索引
-	 * </p>
-	 * 
-	 * @author Billy Dai Created [2015-02-13 下午5:38:22]
-	 * @throws Exception
-	 */
-	void releaseNode() {
-		if (localNode == null) {
-			localNode.close();
-			localNode = null;
 		}
 	}
 
@@ -188,6 +117,12 @@ public class EsClient {
 				break;
 			}
 
+		}
+	}
+
+	public void close() throws Exception {
+		if (client != null) {
+			client.close();
 		}
 	}
 }
