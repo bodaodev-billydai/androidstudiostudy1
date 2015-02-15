@@ -9,14 +9,14 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest extends TestCase {
+public class NodeTest extends TestCase {
 	/**
 	 * Create the test case
 	 *
 	 * @param testName
 	 *            name of the test case
 	 */
-	public AppTest(String testName) {
+	public NodeTest(String testName) {
 		super(testName);
 	}
 
@@ -24,13 +24,21 @@ public class AppTest extends TestCase {
 	 * @return the suite of tests being tested
 	 */
 	public static Test suite() {
-		return new TestSuite(AppTest.class);
+		return new TestSuite(NodeTest.class);
 	}
 
 	/**
 	 * Rigourous Test :-)
 	 */
-	public void testApp() {
+	public void testNode() {
+		EsNode node = new EsNode();
+		try {
+			node.createIndex("elasticsearchbilly");
+			node.searchIndex();
+		} catch (IOException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		assertTrue(true);
 	}
 }

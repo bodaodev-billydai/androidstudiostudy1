@@ -55,7 +55,8 @@ public class EsClient {
 				.put("cluster.name", clusterName).build();
 		// addr.getHostAddress()
 		client = new TransportClient(settings)
-				.addTransportAddress(new InetSocketTransportAddress("10.10.7.146", 9300));
+				.addTransportAddress(new InetSocketTransportAddress(
+						"10.10.7.146", 9300));
 
 	}
 
