@@ -1,4 +1,4 @@
-package wenxin.billy.webappsampl;
+package wenxin.billy.webappsample;
 
 import java.io.IOException;
 
