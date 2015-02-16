@@ -10,6 +10,7 @@ import org.eclipse.jetty.server.UserIdentity;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 
+import wenxin.billy.bean.MyUserIdentity;
 import wenxin.billy.webappsample.HappyRobert;
 import wenxin.billy.webappsample.HappyServlet;
 import wenxin.billy.webappsample.HelloServlet;
@@ -52,11 +53,13 @@ public class JettyServletContextHandlerLauncher {
 		loginService.setName("Test Realm");
 		loginService.setConfig("src/test/resources/realm.properties");
 		server.addBean(loginService);
-		
+
 		ConcurrentMap<String, UserIdentity> users = loginService.getUsers();
-		UserIdentity billy=new UserIdentity();
-		users.put("billy",billy);
+		MyUserIdentity billy = new MyUserIdentity();
+		users.put("billy", billy);
 		loginService.setUsers(users);
+		users = null;
+		users = loginService.getUsers();
 		server.start();
 		server.join();
 	}
