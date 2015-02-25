@@ -28,16 +28,16 @@ __wchar_t title[2000];
 #ifdef _DEBUG
 LPWSTR message = L"something";
 LPWSTR message2 = L"something";
-LPWSTR message3 = L"something";
-char message3BS[2000];
 RECT messageholder = { 0, 0, 1000, 30 };
 RECT messageholder2 = { 0, 30, 1000, 60 };
-RECT messageholder3 = { 0, 60, 1000, 90 };
 CString s;
 CString s2;
-CString s3;
-int i = 0;
 #endif
+int i = 0;
+char message3BS[2000];
+LPWSTR message3 = L"something";
+RECT messageholder3 = { 0, 60, 1000, 90 };
+CString s3;
 #define _CRT_SEURE_NO_WARNINGS
 
 
@@ -56,6 +56,11 @@ void logMessage2(LPWSTR log, UINT msg, WPARAM wParam, LPARAM lParam)
 	message2 = s2.GetBuffer();
 	i++;
 }
+#else
+//#define  logMessage(log, ...) ((void)0)
+//#define  logMessage2(log, ...) ((void)0)
+#endif
+
 void logMessage3(LPWSTR log, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	//theApp.WriteString(_T("ApplicationLook"), log);
@@ -72,17 +77,15 @@ void logMessage3(LPWSTR log, UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 	syslog(LOG_INFO, message3BS);
 }
+
 void drawDebugMessage(HDC dc)
 {
+#ifdef _DEBUG
 	DrawText(dc, message, (int)wcslen(message), &messageholder, 0);
 	DrawText(dc, message2, (int)wcslen(message2), &messageholder2, 0);
+#endif
 	DrawText(dc, message3, (int)wcslen(message3), &messageholder3, 0);
 }
-#else
-//#define  logMessage(log, ...) ((void)0)
-//#define  logMessage2(log, ...) ((void)0)
-#define  logMessage3(log, ...) ((void)0)
-#endif
 
 bool checkActiveWindow()
 {

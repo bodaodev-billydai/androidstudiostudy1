@@ -33,6 +33,7 @@ public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 
+
 // й╣ож
 public:
 	virtual ~CMainFrame();
@@ -49,6 +50,7 @@ protected:
 	afx_msg void OnDestroy(void);
 	afx_msg void OnPaint();
 	afx_msg void OnTimer(UINT_PTR timer);
+	afx_msg void OnWndMin(void);
 	DECLARE_MESSAGE_MAP()
 
 };

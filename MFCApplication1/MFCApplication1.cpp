@@ -75,7 +75,11 @@ BOOL CMFCApplication1App::InitInstance()
 	pFrame->LoadFrame(IDR_MAINFRAME, 0, NULL, NULL);
 
 	// 唯一的一个窗口已初始化，因此显示它并对其进行更新
-	pFrame->ShowWindow(SW_SHOW|SW_MINIMIZE);
+#ifdef _DEBUG
+	pFrame->ShowWindow(SW_SHOW | SW_MINIMIZE);
+#else
+	pFrame->ShowWindow(SW_HIDE);
+#endif
 	pFrame->UpdateWindow();
 	return TRUE;
 }

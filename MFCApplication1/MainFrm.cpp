@@ -21,7 +21,7 @@
 #define new DEBUG_NEW
 #endif
 
-
+AFX_PMSG a;
 // CMainFrame
 
 IMPLEMENT_DYNAMIC(CMainFrame, CFrameWndEx)
@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_WM_DESTROY()
 	ON_WM_PAINT()
 	ON_WM_TIMER()
+	ON_COMMAND(ID_WND_MIN, OnWndMin)
 END_MESSAGE_MAP()
 
 // CMainFrame 构造/析构
@@ -99,9 +100,7 @@ void CMainFrame::OnTimer(UINT_PTR timer)
 {
 	if (checkActiveWindow())
 	{
-#ifdef _DEBUG
 		Invalidate(1);
-#endif
 	}
 	//CFrameWndEx::OnTimer(timer);
 	SetTimer(0, 2000, NULL);
@@ -115,4 +114,9 @@ void CMainFrame::OnPaint()
 
 	// 不要为绘制消息而调用 CWnd::OnPaint()
 	drawDebugMessage(dc);
+}
+
+void CMainFrame::OnWndMin(void)
+{
+	ShowWindow(SW_MINIMIZE);
 }

@@ -119,9 +119,9 @@ END
 
 IDR_MAINFRAME MENU
 BEGIN
-    MENUITEM "退出(X)",                       ID_APP_EXIT, INACTIVE
+    MENUITEM "最小化(&I)",                     ID_WND_MIN
+    MENUITEM "退出(&X)",                      ID_APP_EXIT
 END
-
 
 IDR_WINDOWS_MENU MENU
 BEGIN
@@ -196,7 +196,6 @@ END
 //
 // Accelerator
 //
-
 
 IDR_MAINFRAME2 ACCELERATORS
 BEGIN

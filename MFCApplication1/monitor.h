@@ -15,8 +15,4 @@
 #pragma once
 
 extern bool checkActiveWindow(void);
-#ifdef _DEBUG
 extern void drawDebugMessage(HDC dc);
-#else
-#define drawDebugMessage(dc) ((void)dc)
-#endif
