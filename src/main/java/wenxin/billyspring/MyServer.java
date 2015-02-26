@@ -7,7 +7,7 @@ public class MyServer {
 	public static void main(String[] args) throws Exception {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] { "/wenxin/billyspring/spring.xml" });
-		ExecuteAStatement eas = (ExecuteAStatement) context.getBean("userDAO");
+		ClassA eas = (ClassA) context.getBean("ClassABean");
 		// 执行功能代码
 		eas.doExecute();
 	}
