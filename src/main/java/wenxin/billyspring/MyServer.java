@@ -1,21 +1,12 @@
 package wenxin.billyspring;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Vector;
-
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class MyServer {
 	public static void main(String[] args) throws Exception {
 		{
-			ApplicationContext context = new ClassPathXmlApplicationContext(
+			// ApplicationContext context =
+			new ClassPathXmlApplicationContext(
 					new String[] { "/wenxin/billyspring/spring.xml" });
 			// //
 			// System.out.print(Arrays.toString(context.getBeanDefinitionNames()));
