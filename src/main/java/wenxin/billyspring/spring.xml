@@ -8,7 +8,7 @@
 		<property name="connectors">
 			<list>
 				<bean id="Connector" class="org.eclipse.jetty.server.nio.SelectChannelConnector">
-					<property name="port" value="8089" />
+					<property name="port" value="8087" />
 				</bean>
 			</list>
 		</property>
@@ -17,13 +17,25 @@
 			<bean id="handlers" class="org.eclipse.jetty.server.handler.HandlerList">
 				<property name="handlers">
 					<list>
-						<bean class="wenxin.billyspring.MyHandler" />
+						<bean class="wenxin.billyspring.MyHandler">
+							<property name="param1">
+								<ref bean="ClassABean" />
+							</property>
+						</bean>
 						<bean class="org.eclipse.jetty.server.handler.DefaultHandler" />
+						<!-- <bean class="org.mortbay.jetty.handler.RequestLogHandler" /> -->
+						<!-- <bean class="org.eclipse.jetty.webapp.WebAppContext"> <property 
+							name="configurations"> <ref bean="StaticContexConfiguration" /> </property> 
+							</bean> -->
 					</list>
 				</property>
 			</bean>
 		</property>
 	</bean>
+	<!-- <bean id="StaticContexConfiguration" class="org.eclipse.jetty.webapp.WebXmlConfiguration"> 
+		<property name="descriptor" value="E:/share/test/struts2-blank/WEB-INF/web.xml" 
+		/> <property name="contextPath" value="/myapp\" /> <property name="resourceBase" 
+		value="E:/share/test/struts2-blank" /> </bean> -->
 	<bean id="ClassABean" class="wenxin.billyspring.ClassA">
 		<property name="name">
 			<ref bean="NameBean" />
@@ -31,32 +43,14 @@
 	</bean>
 	<bean id="NameBean" class="wenxin.billyspring.Name">
 		<property name="name">
-			<value>SampleName</value> 
+			<value>SampleName</value>
 		</property>
 	</bean>
-<!-- 
-	<bean id="userDAO" class="wenxin.billyspring.ExecuteAStatement">
-		<property name="dataSource">
-			<ref bean="myDataSource" />
-		</property>
-	</bean>
-	<bean id="myDataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName">
-			<value>org.hsqldb.jdbcDriver</value>
-		</property>
-
-		<property name="url">
-			<value>jdbc:hsqldb:hsql://localhost:</value>
-		</property>
-
-		<property name="username">
-			<value>sa</value>
-		</property>
-
-		<property name="password">
-			<value></value>
-		</property>
-	</bean>
-	-->
+	<!-- <bean id="userDAO" class="wenxin.billyspring.ExecuteAStatement"> <property 
+		name="dataSource"> <ref bean="myDataSource" /> </property> </bean> <bean 
+		id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName"> <value>org.hsqldb.jdbcDriver</value> </property> 
+		<property name="url"> <value>jdbc:hsqldb:hsql://localhost:</value> </property> 
+		<property name="username"> <value>sa</value> </property> <property name="password"> 
+		<value></value> </property> </bean> -->
 </beans>

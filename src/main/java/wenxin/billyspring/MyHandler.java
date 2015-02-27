@@ -10,10 +10,17 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
 public class MyHandler extends AbstractHandler {
+	wenxin.billyspring.ClassA a;
+
+	public void setParam1(wenxin.billyspring.ClassA a) {
+		this.a = a;
+		a.doExecute();
+	}
+
 	public void handle(String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		//context.getBean£¨"ClassABean"£©;
+		// context.getBean£¨"ClassABean"£©;
 		response.setContentType("text/html;charset=utf-8");
 		response.setStatus(HttpServletResponse.SC_OK);
 		baseRequest.setHandled(true);
