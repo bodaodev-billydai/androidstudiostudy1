@@ -17,6 +17,16 @@
 			<bean id="handlers" class="org.eclipse.jetty.server.handler.HandlerList">
 				<property name="handlers">
 					<list>
+						<bean class="org.eclipse.jetty.server.handler.ResourceHandler">
+							<property name="directoriesListed" value="false" />
+							<property name="welcomeFiles">
+								<list>
+									<value>index.html</value>
+									<value>empty.html</value>
+								</list>
+							</property>
+							<property name="resourceBase" value="webroot" />
+						</bean>
 						<bean class="wenxin.billyspring.MyHandler">
 							<property name="param1">
 								<ref bean="ClassABean" />
