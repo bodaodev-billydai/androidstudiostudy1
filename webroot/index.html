@@ -5,6 +5,21 @@
 <title>Static content home</title>
 </head>
 <body>
-Welcome.
+	Welcome.
+	<div id="iframe1" style="width: 1000px; height: 400px;">
+		<div style="width: inherit;">
+			<input value="http://localhost:8082/"> </input>
+		</div>
+		<iframe id="iframe1" src="http://localhost:8082/"
+			style="width: inherit; height: inherit;"> </iframe>
+	</div>
+	<div id="iframe12"
+		style="width: 1000px; height: 400px; margin-top: 26px;">
+		<div style="width: inherit;">
+			<input value="http://localhost:8087/hideindex.jsp"> </input>
+		</div>
+		<iframe id="iframe2" src="http://localhost:8087/hideindex.jsp"
+			style="width: inherit; height: inherit;"> </iframe>
+	</div>
 </body>
 </html>
