@@ -17,6 +17,10 @@ public class MyHandler extends AbstractHandler {
 		a.doExecute();
 	}
 
+	public void addLog(String log) {
+		System.out.println("MyHandler.addlog");
+	}
+
 	public void handle(String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -28,5 +32,6 @@ public class MyHandler extends AbstractHandler {
 		response.getWriter().println("<li>Request url: " + target + "</li>");
 		response.getWriter().println(
 				"<li>Server port: " + request.getServerPort() + "</li>");
+		addLog("test");
 	}
 }
