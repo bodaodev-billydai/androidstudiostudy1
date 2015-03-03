@@ -93,21 +93,24 @@
 
 	<bean id="securityHandler" class="wenxin.billyspring.AopHandler" />
 	<aop:config>
-		<aop:aspect id="securityAspect" ref="securityHandler">
-			<!-- 以add开头的方法 <aop:pointcut id="addAddMethod" expression="execution(* 
-				add*(..))" /> -->
-			<!-- wenxin.billyspring 包下所有的类所有的方法 <aop:pointcut id="addAddMethod" expression="execution(* 
-				wenxin.billyspring.*.*(..))" /> -->
+		<aop:aspect id="securityAspect1" ref="securityHandler">
+
 			<aop:pointcut id="addAddMethod"
 				expression="execution(* wenxin.billyspring.*.add*(..))" />
-			<aop:around pointcut-ref="addAddMethod" method="denineSecurity" />
-			<aop:before pointcut-ref="addAddMethod" method="checkSecurity" />
-			<!-- <aop:after pointcut-ref="addAddMethod" method="logSecurity" /> -->
+
+			<aop:before pointcut-ref="addAddMethod" method="logSecurityBefore" />
+			<aop:around pointcut-ref="addAddMethod" method="controlSecurity" />
+			<aop:after pointcut-ref="addAddMethod" method="checkSecurityAfter" />
+
+		</aop:aspect>
+		<aop:aspect id="securityAspect2" ref="securityHandler">
 			<aop:pointcut id="delAddMethod3"
 				expression="execution(* wenxin.billyspring.*.del*(..))" />
-			<aop:around pointcut-ref="delAddMethod3" method="controlSecurity" />
-			<aop:before pointcut-ref="delAddMethod3" method="logSecurity" />
-			<aop:after pointcut-ref="delAddMethod3" method="checkSecurity" />
+
+			<aop:before pointcut-ref="delAddMethod3" method="checkSecurityBefore" />
+			<aop:around pointcut-ref="delAddMethod3" method="denineSecurity" />
+			<aop:after pointcut-ref="delAddMethod3" method="logSecurityAfter" />
+
 		</aop:aspect>
 	</aop:config>
 

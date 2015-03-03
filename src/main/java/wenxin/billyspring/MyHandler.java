@@ -14,9 +14,17 @@ public class MyHandler extends AbstractHandler {
 
 	public void setParam1(wenxin.billyspring.ClassA a) {
 		this.a = a;
+		System.out.println();
+		System.out.println("execute");
 		a.doExecute();
+		System.out.println();
+		System.out.println("addAlias");
 		a.addAlias("ali");
+		System.out.println();
+		System.out.println("delAlias");
 		a.delAlias();
+		System.out.println();
+		System.out.println("...");
 	}
  
 	public void addLog(String log) {
