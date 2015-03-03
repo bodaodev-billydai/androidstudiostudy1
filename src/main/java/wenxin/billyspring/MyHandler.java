@@ -17,6 +17,8 @@ public class MyHandler extends AbstractHandler {
 	public void setParam1(wenxin.billyspring.ClassA a) {
 		this.a = a;
 		a.doExecute();
+		a.addAlias("ali");
+		a.delAlias();
 	}
  
 	public void addLog(String log) {
@@ -34,5 +36,7 @@ public class MyHandler extends AbstractHandler {
 		response.getWriter().println(
 				"<li>Server port: " + request.getServerPort() + "</li>");
 		addLog("test");
+		a.addAlias("ali");
+		a.delAlias();
 	}
 }

@@ -16,12 +16,4 @@ class Name {
 	public String toString() {
 		return name;
 	}
-
-	public void addAlias(String alias) {
-		this.alias = alias;
-	}
-
-	public void delAlias() {
-		this.alias = null;
-	}
 }

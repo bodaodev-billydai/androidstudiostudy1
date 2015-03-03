@@ -7,11 +7,7 @@ public class MyServer {
 	public static void main(String[] args) throws Exception {
 		{
 			ApplicationContext context = new ClassPathXmlApplicationContext(
-					new String[] { "/conf/spring.xml" });
-
-			Name a = ( Name) context.getBean("NameBean");
-			a.addAlias("ali");
-			a.delAlias();
+					new String[] { "/conf/spring.xml" }); 
 			// //
 			// System.out.print(Arrays.toString(context.getBeanDefinitionNames()));
 			// // stop and restart server for debug purpose
