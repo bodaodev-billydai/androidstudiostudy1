@@ -51,9 +51,9 @@
 		</property>
 	</bean>
 	<bean id="StaticContexConfiguration" class="org.eclipse.jetty.webapp.WebXmlConfiguration">
-		<!-- <property name="descriptor" value="E:/share/test/struts2-blank/WEB-INF/web.xml" />
-		<property name="contextPath" value="/webroot\" />
-		<property name="resourceBase" value="E:/share/test/struts2-blank" /> -->
+		<!-- <property name="descriptor" value="E:/share/test/struts2-blank/WEB-INF/web.xml" 
+			/> <property name="contextPath" value="/webroot\" /> <property name="resourceBase" 
+			value="E:/share/test/struts2-blank" /> -->
 	</bean>
 	<bean id="ClassABean" class="wenxin.billyspring.ClassA">
 		<property name="name">
@@ -91,5 +91,22 @@
 
 	<!-- <bean id="userManager" class="com.bjpowernode.spring.UserManagerImpl" 
 		/> -->
+
+	<bean id="securityHandler" class="wenxin.billyspring.AopHandler" />
+	<aop:config>
+		<aop:aspect id="securityAspect" ref="securityHandler">
+			<!-- 以add开头的方法 <aop:pointcut id="addAddMethod" expression="execution(* 
+				add*(..))" /> -->
+			<!-- wenxin.billyspring 包下所有的类所有的方法 <aop:pointcut id="addAddMethod" expression="execution(* 
+				wenxin.billyspring.*.*(..))" /> -->
+			<aop:pointcut id="addAddMethod"
+				expression="execution(* wenxin.billyspring.*.add*(..))" /> 
+			<aop:before method="checkSecurity" pointcut-ref="addAddMethod" /> 
+			<aop:pointcut id="delAddMethod3"
+				expression="execution(* wenxin.billyspring.*.del*(..))" /> 
+			<aop:before method="logSecurity" pointcut-ref="delAddMethod3" /> 
+		</aop:aspect>
+	</aop:config>
+
 
 </beans>

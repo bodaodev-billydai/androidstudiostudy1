@@ -18,8 +18,14 @@ public class AopHandler {
 	 * 该方法就是一个标识，不进行调用
 	 */
 
-	@Pointcut("execution(*add*(..))")
+	@Pointcut("execution(* add*(..))")
 	private void addAddMethod() {
+		System.out.println("-------addAddMethod-------");
+	};
+	
+	@Pointcut("execution(* del*(..))")
+	private void delAddMethod3() {
+		System.out.println("-------delAddMethod-------");
 	};
 
 	/**
@@ -29,9 +35,7 @@ public class AopHandler {
 
 	@Before("addAddMethod()")
 	private void checkSecurity() {
-
 		System.out.println("-------checkSecurity-------");
-
 	}
 
 	/**
@@ -39,11 +43,14 @@ public class AopHandler {
 	 * 定义Advice，表示我们的Advice应用到哪些Pointcut订阅的Joinpoint上
 	 */
 
-	@After("addAddMethod()")
+	@After("delAddMethod3()")
 	private void logSecurity() {
-
 		System.out.println("-------logSecurity-------");
+	}
 
+	public void testApi() {
+		addAddMethod();
+		delAddMethod3();
 	}
 
 }

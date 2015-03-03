@@ -6,8 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.aspectj.lang.annotation.Pointcut;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.handler.ContextHandler.Context;
 
 public class MyHandler extends AbstractHandler {
 	wenxin.billyspring.ClassA a;
@@ -16,7 +18,7 @@ public class MyHandler extends AbstractHandler {
 		this.a = a;
 		a.doExecute();
 	}
-
+ 
 	public void addLog(String log) {
 		System.out.println("MyHandler.addlog");
 	}
@@ -24,7 +26,6 @@ public class MyHandler extends AbstractHandler {
 	public void handle(String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// context.getBean£¨"ClassABean"£©;
 		response.setContentType("text/html;charset=utf-8");
 		response.setStatus(HttpServletResponse.SC_OK);
 		baseRequest.setHandled(true);

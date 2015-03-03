@@ -1,16 +1,16 @@
 package wenxin.billyspring;
 
-import java.io.IOException;
-import java.io.InputStream;
-
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class MyServer {
 	public static void main(String[] args) throws Exception {
 		{
-			// ApplicationContext context =
-			new ClassPathXmlApplicationContext(
+			ApplicationContext context = new ClassPathXmlApplicationContext(
 					new String[] { "/conf/spring.xml" });
+
+			AopHandler a = (AopHandler) context.getBean("securityHandler");
+			a.testApi();
 			// //
 			// System.out.print(Arrays.toString(context.getBeanDefinitionNames()));
 			// // stop and restart server for debug purpose
