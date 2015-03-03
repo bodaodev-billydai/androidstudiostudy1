@@ -87,7 +87,7 @@
 	</bean>
 
 	<!-- 启用AspectJ对Annotation的支持 -->
-	<aop:aspectj-autoproxy />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!-- <bean id="userManager" class="com.bjpowernode.spring.UserManagerImpl" 
 		/> -->
@@ -100,11 +100,11 @@
 			<!-- wenxin.billyspring 包下所有的类所有的方法 <aop:pointcut id="addAddMethod" expression="execution(* 
 				wenxin.billyspring.*.*(..))" /> -->
 			<aop:pointcut id="addAddMethod"
-				expression="execution(* wenxin.billyspring.*.add*(..))" /> 
-			<aop:before method="checkSecurity" pointcut-ref="addAddMethod" /> 
+				expression="execution(* wenxin.billyspring.*.add*(..))" />
+			<aop:before method="checkSecurity" pointcut-ref="addAddMethod" />
 			<aop:pointcut id="delAddMethod3"
-				expression="execution(* wenxin.billyspring.*.del*(..))" /> 
-			<aop:before method="logSecurity" pointcut-ref="delAddMethod3" /> 
+				expression="execution(* wenxin.billyspring.*.del*(..))" />
+			<aop:before method="logSecurity" pointcut-ref="delAddMethod3" />
 		</aop:aspect>
 	</aop:config>
 

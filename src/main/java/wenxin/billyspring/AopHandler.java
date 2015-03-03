@@ -1,12 +1,10 @@
 package wenxin.billyspring;
 
 import org.aspectj.lang.annotation.After;
-
 import org.aspectj.lang.annotation.Aspect;
-
 import org.aspectj.lang.annotation.Before;
-
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.aop.framework.AopContext;
 
 @Aspect
 public class AopHandler {
@@ -22,7 +20,7 @@ public class AopHandler {
 	private void addAddMethod() {
 		System.out.println("-------addAddMethod-------");
 	};
-	
+
 	@Pointcut("execution(* del*(..))")
 	private void delAddMethod3() {
 		System.out.println("-------delAddMethod-------");
@@ -49,7 +47,7 @@ public class AopHandler {
 	}
 
 	public void testApi() {
-		addAddMethod();
+		((AopHandler) AopContext.currentProxy()).addAddMethod();
 		delAddMethod3();
 	}
 
