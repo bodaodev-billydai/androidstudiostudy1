@@ -9,8 +9,9 @@ public class MyServer {
 			ApplicationContext context = new ClassPathXmlApplicationContext(
 					new String[] { "/conf/spring.xml" });
 
-			AopHandler a = (AopHandler) context.getBean("securityHandler");
-			a.testApi();
+			Name a = ( Name) context.getBean("NameBean");
+			a.addAlias("ali");
+			a.delAlias();
 			// //
 			// System.out.print(Arrays.toString(context.getBeanDefinitionNames()));
 			// // stop and restart server for debug purpose

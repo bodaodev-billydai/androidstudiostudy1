@@ -45,10 +45,4 @@ public class AopHandler {
 	private void logSecurity() {
 		System.out.println("-------logSecurity-------");
 	}
-
-	public void testApi() {
-		((AopHandler) AopContext.currentProxy()).addAddMethod();
-		delAddMethod3();
-	}
-
 }

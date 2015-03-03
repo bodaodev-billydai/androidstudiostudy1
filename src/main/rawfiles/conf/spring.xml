@@ -86,8 +86,7 @@
 		</property>
 	</bean>
 
-	<!-- 启用AspectJ对Annotation的支持 -->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- 启用AspectJ对Annotation的支持 --> 
 
 	<!-- <bean id="userManager" class="com.bjpowernode.spring.UserManagerImpl" 
 		/> -->
