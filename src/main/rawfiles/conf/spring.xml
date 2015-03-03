@@ -50,10 +50,11 @@
 			</bean>
 		</property>
 	</bean>
-	<!-- <bean id="StaticContexConfiguration" class="org.eclipse.jetty.webapp.WebXmlConfiguration"> 
-		<property name="descriptor" value="E:/share/test/struts2-blank/WEB-INF/web.xml" 
-		/> <property name="contextPath" value="/myapp\" /> <property name="resourceBase" 
-		value="E:/share/test/struts2-blank" /> </bean> -->
+	<bean id="StaticContexConfiguration" class="org.eclipse.jetty.webapp.WebXmlConfiguration">
+		<!-- <property name="descriptor" value="E:/share/test/struts2-blank/WEB-INF/web.xml" />
+		<property name="contextPath" value="/webroot\" />
+		<property name="resourceBase" value="E:/share/test/struts2-blank" /> -->
+	</bean>
 	<bean id="ClassABean" class="wenxin.billyspring.ClassA">
 		<property name="name">
 			<ref bean="NameBean" />
@@ -64,13 +65,26 @@
 			<value>SampleName</value>
 		</property>
 	</bean>
-	<!-- <bean id="userDAO" class="wenxin.billyspring.ExecuteAStatement"> <property 
-		name="dataSource"> <ref bean="myDataSource" /> </property> </bean> <bean 
-		id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
-		<property name="driverClassName"> <value>org.hsqldb.jdbcDriver</value> </property> 
-		<property name="url"> <value>jdbc:hsqldb:hsql://localhost:</value> </property> 
-		<property name="username"> <value>sa</value> </property> <property name="password"> 
-		<value></value> </property> </bean> -->
+	<bean id="userDAO" class="wenxin.billyspring.ExecuteAStatement">
+		<property name="dataSource">
+			<ref bean="myDataSource" />
+		</property>
+	</bean>
+	<bean id="myDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>org.hsqldb.jdbcDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:hsqldb:hsql://localhost:</value>
+		</property>
+		<property name="username">
+			<value>sa</value>
+		</property>
+		<property name="password">
+			<value></value>
+		</property>
+	</bean>
 
 	<!-- 启用AspectJ对Annotation的支持 -->
 	<aop:aspectj-autoproxy />
@@ -78,17 +92,4 @@
 	<!-- <bean id="userManager" class="com.bjpowernode.spring.UserManagerImpl" 
 		/> -->
 
-	<bean id="securityHandler" class="wenxin.billyspring.AopHandler" />
-	<aop:config>
-		<aop:aspect id="securityAspect" ref="securityHandler">
-			<!-- 以add开头的方法
-			<aop:pointcut id="addAddMethod" expression="execution(* add*(..))" /> -->
-			<!-- wenxin.billyspring 包下所有的类所有的方法
-			<aop:pointcut id="addAddMethod"
-				expression="execution(* wenxin.billyspring.*.*(..))" /> -->
-			<aop:pointcut id="addAddMethod"
-				expression="execution(* wenxin.billyspring.*.add*(..)) || execution(* wenxin.billyspring.*.del*(..))" />
-			<aop:before method="checkSecurity" pointcut-ref="addAddMethod" />
-		</aop:aspect>
-	</aop:config>
 </beans>

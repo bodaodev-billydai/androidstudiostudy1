@@ -1,5 +1,8 @@
 package wenxin.billyspring;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class MyServer {
@@ -7,7 +10,7 @@ public class MyServer {
 		{
 			// ApplicationContext context =
 			new ClassPathXmlApplicationContext(
-					new String[] { "/wenxin/billyspring/spring.xml" });
+					new String[] { "/conf/spring.xml" });
 			// //
 			// System.out.print(Arrays.toString(context.getBeanDefinitionNames()));
 			// // stop and restart server for debug purpose

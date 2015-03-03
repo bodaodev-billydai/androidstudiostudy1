@@ -1,5 +1,7 @@
 package wenxin.billyspring;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -11,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.eclipse.jetty.webapp.WebXmlConfiguration;
 
 /**
  * Unit test for simple App.
@@ -45,7 +48,7 @@ public class AppTest extends TestCase {
 	 */
 	public void testBeanFactor() {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				new String[] { "/wenxin/billyspring/spring.xml" });
+				new String[] { "/conf/spring.xml" });
 		Server server = (Server) context.getBean("Server");
 		Handler[] handlers = server.getHandlers();
 		assertTrue(true);
@@ -64,5 +67,12 @@ public class AppTest extends TestCase {
 			}
 		}
 		assertTrue(true);
+	}
+
+	public void testResource() throws IOException {
+		InputStream is = getClass().getResourceAsStream(
+				"/res/application.properties");
+		int i = is.read();
+		System.out.print("resource appliation.properties: " + i);
 	}
 }
