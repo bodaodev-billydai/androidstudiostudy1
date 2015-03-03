@@ -86,7 +86,7 @@
 		</property>
 	</bean>
 
-	<!-- 启用AspectJ对Annotation的支持 --> 
+	<!-- 启用AspectJ对Annotation的支持 -->
 
 	<!-- <bean id="userManager" class="com.bjpowernode.spring.UserManagerImpl" 
 		/> -->
@@ -100,12 +100,14 @@
 				wenxin.billyspring.*.*(..))" /> -->
 			<aop:pointcut id="addAddMethod"
 				expression="execution(* wenxin.billyspring.*.add*(..))" />
-			<aop:before method="checkSecurity" pointcut-ref="addAddMethod" />
-			<aop:after method="checkSecurity" pointcut-ref="delAddMethod3" />
+			<aop:around pointcut-ref="addAddMethod" method="denineSecurity" />
+			<aop:before pointcut-ref="addAddMethod" method="checkSecurity" />
+			<!-- <aop:after pointcut-ref="addAddMethod" method="logSecurity" /> -->
 			<aop:pointcut id="delAddMethod3"
 				expression="execution(* wenxin.billyspring.*.del*(..))" />
-			<aop:before method="logSecurity" pointcut-ref="delAddMethod3" />
-			<aop:after method="logSecurity" pointcut-ref="addAddMethod" />
+			<aop:around pointcut-ref="delAddMethod3" method="controlSecurity" />
+			<aop:before pointcut-ref="delAddMethod3" method="logSecurity" />
+			<aop:after pointcut-ref="delAddMethod3" method="checkSecurity" />
 		</aop:aspect>
 	</aop:config>
 

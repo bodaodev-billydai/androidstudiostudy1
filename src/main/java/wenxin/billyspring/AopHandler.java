@@ -1,5 +1,7 @@
 package wenxin.billyspring;
 
+import org.aspectj.lang.ProceedingJoinPoint;
+
 public class AopHandler {
 	/**
 	 * 
@@ -18,4 +20,19 @@ public class AopHandler {
 	private void logSecurity() {
 		System.out.println("-------logSecurity-------");
 	}
+
+	@SuppressWarnings("unused")
+	private void controlSecurity(ProceedingJoinPoint pjp) throws Throwable {
+		System.out.println("-------before controlSecurity-------");
+		pjp.proceed();
+		System.out.println("-------after controlSecurity-------");
+	}
+
+	@SuppressWarnings("unused")
+	private void denineSecurity(ProceedingJoinPoint pjp) throws Throwable {
+		System.out.println("-------before controlSecurity-------");
+		//pjp.proceed();
+		System.out.println("-------after controlSecurity-------");
+	}
+
 }
