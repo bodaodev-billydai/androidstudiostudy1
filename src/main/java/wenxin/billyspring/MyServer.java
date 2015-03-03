@@ -1,13 +1,13 @@
 package wenxin.billyspring;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class MyServer {
 	public static void main(String[] args) throws Exception {
 		{
-			ApplicationContext context = new ClassPathXmlApplicationContext(
-					new String[] { "/conf/spring.xml" }); 
+			// ApplicationContext context =
+			new ClassPathXmlApplicationContext(
+					new String[] { "/conf/spring.xml" });
 			// //
 			// System.out.print(Arrays.toString(context.getBeanDefinitionNames()));
 			// // stop and restart server for debug purpose
