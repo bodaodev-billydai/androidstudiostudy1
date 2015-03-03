@@ -16,7 +16,7 @@
 		<property name="connectors">
 			<list>
 				<bean id="Connector" class="org.eclipse.jetty.server.nio.SelectChannelConnector">
-					<property name="port" value="8087" />
+					<property name="port" value="8089" />
 				</bean>
 			</list>
 		</property>
@@ -101,9 +101,11 @@
 			<aop:pointcut id="addAddMethod"
 				expression="execution(* wenxin.billyspring.*.add*(..))" />
 			<aop:before method="checkSecurity" pointcut-ref="addAddMethod" />
+			<aop:after method="checkSecurity" pointcut-ref="delAddMethod3" />
 			<aop:pointcut id="delAddMethod3"
 				expression="execution(* wenxin.billyspring.*.del*(..))" />
 			<aop:before method="logSecurity" pointcut-ref="delAddMethod3" />
+			<aop:after method="logSecurity" pointcut-ref="addAddMethod" />
 		</aop:aspect>
 	</aop:config>
 

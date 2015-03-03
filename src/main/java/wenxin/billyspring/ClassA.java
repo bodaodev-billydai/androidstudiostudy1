@@ -17,10 +17,12 @@ class ClassA {
 	}
 
 	public void addAlias(String alias) {
+		System.out.println("-------addAlias-------");
 		this.alias = alias;
 	}
 
 	public void delAlias() {
+		System.out.println("-------delAlias-------");
 		this.alias = null;
 	}
 }
