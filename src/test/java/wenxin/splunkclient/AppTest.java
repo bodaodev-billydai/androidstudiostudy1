@@ -29,7 +29,7 @@ public class AppTest extends TestCase {
 
 	public void testSearch() {
 		app.bind("localhost", 8089, "admin", "a123456");
-		app.connect();
+		assertTrue(app.connect());
 		app.search("");
 		app.disconnect();
 		assertTrue(true);

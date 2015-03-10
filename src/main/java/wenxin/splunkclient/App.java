@@ -49,7 +49,12 @@ public class App {
 		loginArgs.setHost(server);
 		loginArgs.setPort(port);
 		// Create a Service instance and log in with the argument map
-		service = Service.connect(loginArgs);
+		try {
+			service = Service.connect(loginArgs);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 		return service != null;
 	}
 

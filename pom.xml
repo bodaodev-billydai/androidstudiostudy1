@@ -14,12 +14,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>ext-release-local</id>
 			<url>http://splunk.artifactoryonline.com/splunk/ext-releases-local</url>
 		</repository>
-	</repositories>
+	</repositories> -->
 
 	<dependencies>
 		<dependency>
@@ -28,10 +28,10 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.splunk</groupId>
 			<artifactId>splunk</artifactId>
-			<version>1.1.0</version>
-		</dependency>
+			<version>1.1.1</version>
+		</dependency> -->
 	</dependencies>
 </project>
