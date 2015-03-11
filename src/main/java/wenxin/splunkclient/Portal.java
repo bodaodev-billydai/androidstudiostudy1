@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.splunk.Application;
 import com.splunk.Args;
@@ -179,8 +182,8 @@ public class Portal {
 
 	public String createApp(String name, String folder, boolean visible,
 			String description, String template) {
-		Application app;
-		EntityCollection<Application> apps = service.getApplications();
+		// Application app;
+		// EntityCollection<Application> apps = service.getApplications();
 		return name;
 	}
 
@@ -225,5 +228,24 @@ public class Portal {
 		eventTypeCollection.remove(name);
 		eventTypeCollection.refresh();
 		return name;
+	}
+
+	public void updateEventType(String name, Map<String, Object> argPairs) {
+		EventTypeCollection eventTypeCollection = service.getEventTypes();
+		EventType eventType = eventTypeCollection.get(name);
+		Args args = new Args();
+		for (Object o : argPairs.entrySet()) {
+			if (o instanceof Entry) {
+				@SuppressWarnings("unchecked")
+				Entry<String, Object> e = (Entry<String, Object>) o;
+				Object v = e.getValue();
+				if (v instanceof Integer) {
+					args.put((String) e.getKey(), ((Integer) v).intValue());
+				} else {
+					args.put((String) e.getKey(), e.getValue());
+				}
+			}
+		}
+		eventType.update(args);
 	}
 }

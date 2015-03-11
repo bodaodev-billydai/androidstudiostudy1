@@ -2,6 +2,8 @@ package wenxin.splunkclient;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -84,8 +86,24 @@ public class AppTest extends TestCase {
 	public void testCreateEventType() {
 		app.bind("localhost", 8089, "admin", "a123456");
 		assertTrue(app.connect());
-		String a1 = app.createEventType("test event", "index=_internal *",
-				"this is a test", 3);
+		app.createEventType("test event", "index=_internal *",
+				"This is a test", 5);
+		app.disconnect();
+		assertTrue(true);
+	}
+
+	public void testModifyEventTypeDescription() {
+		app.bind("localhost", 8089, "admin", "a123456");
+		assertTrue(app.connect());
+		app.updateEventType("test event", "this is a new test");
+		app.disconnect();
+		assertTrue(true);
+	}
+
+	public void testModifyEventTypePriority() {
+		app.bind("localhost", 8089, "admin", "a123456");
+		assertTrue(app.connect());
+		app.updateEventType("test event", 2);
 		app.disconnect();
 		assertTrue(true);
 	}
@@ -93,8 +111,21 @@ public class AppTest extends TestCase {
 	public void testModifyEventType() {
 		app.bind("localhost", 8089, "admin", "a123456");
 		assertTrue(app.connect());
-		app.updateEventType("test event", "this is a new test");
-		app.updateEventType("test event", 4);
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("description", "new desciption ");
+		args.put("priority", new Integer(1));
+		app.updateEventType("test event", args);
+		app.disconnect();
+		assertTrue(true);
+	}
+
+	public void testModifyEventType2() {
+		app.bind("localhost", 8089, "admin", "a123456");
+		assertTrue(app.connect());
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("description", "new desciption 5 ");
+		args.put("priority", "5");
+		app.updateEventType("test event", args);
 		app.disconnect();
 		assertTrue(true);
 	}
@@ -102,7 +133,8 @@ public class AppTest extends TestCase {
 	public void testDestroyEventType() {
 		app.bind("localhost", 8089, "admin", "a123456");
 		assertTrue(app.connect());
-		String a1 = app.destroyEventType("test event");
+		app.destroyEventType("test");
+		app.destroyEventType("test event");
 		app.disconnect();
 		assertTrue(true);
 	}
