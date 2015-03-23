@@ -16,5 +16,14 @@
 			<artifactId>qrgen</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>${zxing.version}</version>
+		</dependency>
 	</dependencies>
+	<properties>
+		<!-- This can't reference project.version as some subprojects version differently -->
+		<zxing.version>3.2.0</zxing.version>
+	</properties>
 </project>
