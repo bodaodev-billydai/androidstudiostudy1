@@ -37,18 +37,18 @@ public class FilterExample {
 			root = "";
 		}
 
-//		usernamePasswords.put("foo", "bar");
-//		usernamePasswords.put("admin", "admin");
-//
-//		before((request, response) -> {
-//			String user = request.queryParams("user");
-//			String password = request.queryParams("password");
-//
-//			String dbPassword = usernamePasswords.get(user);
-//			if (!(password != null && password.equals(dbPassword))) {
-//				halt(401, "You are not welcome here!!!");
-//			}
-//		});
+		usernamePasswords.put("foo", "bar");
+		usernamePasswords.put("admin", "admin");
+
+		before("/hello", (request, response) -> {
+			String user = request.queryParams("user");
+			String password = request.queryParams("password");
+
+			String dbPassword = usernamePasswords.get(user);
+			if (!(password != null && password.equals(dbPassword))) {
+				halt(401, "You are not welcome here!!!");
+			}
+		});
 
 		before("/hello", (request, response) -> {
 			response.header("Foo", "Set by second before filter");

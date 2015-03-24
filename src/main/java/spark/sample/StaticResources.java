@@ -1,7 +1,8 @@
 package spark.sample;
 
 import static spark.Spark.get;
-import static spark.SparkBase.staticFileLocation;
+import static spark.Spark .externalStaticFileLocation;
+import static spark.Spark .staticFileLocation;
 
 public class StaticResources {
 
@@ -15,6 +16,7 @@ public class StaticResources {
 		// route isn't consumed by others routes.
 		// When using Maven, the "/public" folder is assumed to be in
 		// "/main/resources"
+		externalStaticFileLocation("/public");
 		staticFileLocation("/public");
 		return 0;
 	}

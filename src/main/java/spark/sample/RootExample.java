@@ -1,9 +1,14 @@
 package spark.sample;
 
+import static spark.Spark.connect;
 import static spark.Spark.delete;
 import static spark.Spark.get;
-import static spark.Spark.*;
+import static spark.Spark.head;
+import static spark.Spark.options;
+import static spark.Spark.patch;
+import static spark.Spark.post;
 import static spark.Spark.put;
+import static spark.Spark.trace;
 
 /**
  * Example showing a very simple (and stupid) autentication filter that is

@@ -10,7 +10,7 @@ import java.util.jar.*;
 
 public class Launcher {
 
-	private static final String preMethodName = "dock";
+	private static final String preMethodName = "preDock";
 	private static final String launchMethodName = "dock";
 	private static final Class<?> param1Type = String.class;
 	private static final Class<?> param2Type = String.class;
