@@ -1,10 +1,8 @@
 package spark.sample;
 
-import static spark.Spark.*;
-
-import spark.Request;
-import spark.Response;
-import spark.Route;
+import static spark.Spark.get;
+import static spark.Spark.halt;
+import static spark.Spark.post;
 
 /**
  * A simple example just showing some basic functionality
