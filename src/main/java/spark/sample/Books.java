@@ -21,6 +21,13 @@ public class Books {
 	private static Map<String, Book> books = new HashMap<String, Book>();
 
 	public static void main(String[] args) {
+		dock("", "");
+	}
+
+	private static int dock(String root, String opt) {
+		if (root == null) {
+			root = "";
+		}
 		final Random random = new Random();
 
 		// Creates a new book resource, will return the ID to the created
@@ -95,6 +102,7 @@ public class Books {
 			}
 			return ids;
 		});
+		return 0;
 
 	}
 

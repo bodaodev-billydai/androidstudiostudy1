@@ -29,6 +29,13 @@ public class FilterExample {
 	private static Map<String, String> usernamePasswords = new HashMap<String, String>();
 
 	public static void main(String[] args) {
+		dock("", "");
+	}
+
+	private static int dock(String root, String opt) {
+		if (root == null) {
+			root = "";
+		}
 
 		usernamePasswords.put("foo", "bar");
 		usernamePasswords.put("admin", "admin");
@@ -54,6 +61,7 @@ public class FilterExample {
 		after("/hello", (request, response) -> {
 			response.header("spark", "added by after-filter");
 		});
+		return 0;
 
 	}
 }

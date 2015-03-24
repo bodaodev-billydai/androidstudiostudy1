@@ -9,45 +9,56 @@ import static spark.Spark.post;
  */
 public class SimpleExample {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
+		dock("", "");
+	}
 
-        //  setPort(5678); <- Uncomment this if you wan't spark to listen on a port different than 4567.
+	private static int dock(String root, String opt) {
+		if (root == null) {
+			root = "";
+		}
 
-        get("/hello", (request, response) -> {
-            return "Hello World!";
-        });
+		// setPort(5678); <- Uncomment this if you wan't spark to listen on a
+		// port different than 4567.
 
-        post("/hello", (request, response) -> {
-            return "Hello World: " + request.body();
-        });
+		get("/hello", (request, response) -> {
+			return "Hello World!";
+		});
 
-        get("/private", (request, response) -> {
-            response.status(401);
-            return "Go Away!!!";
-        });
+		post("/hello", (request, response) -> {
+			return "Hello World: " + request.body();
+		});
 
-        get("/users/:name", (request, response) -> {
-           return "Selected user: " + request.params(":name");
-        });
+		get("/private", (request, response) -> {
+			response.status(401);
+			return "Go Away!!!";
+		});
 
-        get("/news/:section", (request, response) -> {
-           response.type("text/xml");
-           return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><news>" + request.params("section") + "</news>";
-        });
+		get("/users/:name", (request, response) -> {
+			return "Selected user: " + request.params(":name");
+		});
 
-        get("/protected", (request, response) -> {
-           halt(403, "I don't think so!!!");
-           return null;
-        });
+		get("/news/:section",
+				(request, response) -> {
+					response.type("text/xml");
+					return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><news>"
+							+ request.params("section") + "</news>";
+				});
 
-        get("/redirect", (request, response) -> {
-           response.redirect("/news/world");
-           return null;
-        });
+		get("/protected", (request, response) -> {
+			halt(403, "I don't think so!!!");
+			return null;
+		});
 
-        get("/", (request, response) -> {
-           return "root";
-        });
+		get("/redirect", (request, response) -> {
+			response.redirect("/news/world");
+			return null;
+		});
 
-    }
+		get("/", (request, response) -> {
+			return "root";
+		});
+		return 0;
+
+	}
 }

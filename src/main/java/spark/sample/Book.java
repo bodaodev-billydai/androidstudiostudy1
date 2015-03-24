@@ -25,5 +25,4 @@ public class Book {
 	public void setTitle(String newTitle) {
 		title = newTitle;
 	}
-
 }
