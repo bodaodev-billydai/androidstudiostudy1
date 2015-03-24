@@ -24,7 +24,7 @@ import java.util.Map;
  * Note: There is a second "before filter" that adds a header to the response
  * Note: There is also an "after filter" that adds a header to the response
  */
-public class FilterExample {
+public class SecureEntranceExample {
 
 	private static Map<String, String> usernamePasswords = new HashMap<String, String>();
 
@@ -37,30 +37,31 @@ public class FilterExample {
 			root = "";
 		}
 
-//		usernamePasswords.put("foo", "bar");
-//		usernamePasswords.put("admin", "admin");
-//
-//		before((request, response) -> {
-//			String user = request.queryParams("user");
-//			String password = request.queryParams("password");
-//
-//			String dbPassword = usernamePasswords.get(user);
-//			if (!(password != null && password.equals(dbPassword))) {
-//				halt(401, "You are not welcome here!!!");
-//			}
-//		});
+		usernamePasswords.put("foo", "bar");
+		usernamePasswords.put("admin", "admin");
 
-		before("/hello", (request, response) -> {
-			response.header("Foo", "Set by second before filter");
+		before((request, response) -> {
+			String user = request.queryParams("user");
+			String password = request.queryParams("password");
+
+			String dbPassword = usernamePasswords.get(user);
+			if (!(password != null && password.equals(dbPassword))) {
+				halt(401,
+						"Developing!!! Unauthorized access should be allowed to visit some public information.");
+			}
 		});
 
-		get("/hello", (request, response) -> {
-			return "Hello World!";
-		});
-
-		after("/hello", (request, response) -> {
-			response.header("spark", "added by after-filter");
-		});
+		// before("/hello", (request, response) -> {
+		// response.header("Foo", "Set by second before filter");
+		// });
+		//
+		// get("/hello", (request, response) -> {
+		// return "Hello World!";
+		// });
+		//
+		// after("/hello", (request, response) -> {
+		// response.header("spark", "added by after-filter");
+		// });
 		return 0;
 
 	}

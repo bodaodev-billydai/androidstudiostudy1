@@ -1,12 +1,9 @@
 package spark.sample;
 
-import static spark.Spark.after;
-import static spark.Spark.before;
+import static spark.Spark.delete;
 import static spark.Spark.get;
-import static spark.Spark.halt;
-
-import java.util.HashMap;
-import java.util.Map;
+import static spark.Spark.*;
+import static spark.Spark.put;
 
 /**
  * Example showing a very simple (and stupid) autentication filter that is
@@ -24,9 +21,7 @@ import java.util.Map;
  * Note: There is a second "before filter" that adds a header to the response
  * Note: There is also an "after filter" that adds a header to the response
  */
-public class FilterExample {
-
-	private static Map<String, String> usernamePasswords = new HashMap<String, String>();
+public class RootExample {
 
 	public static void main(String[] args) {
 		dock("", "");
@@ -37,30 +32,34 @@ public class FilterExample {
 			root = "";
 		}
 
-//		usernamePasswords.put("foo", "bar");
-//		usernamePasswords.put("admin", "admin");
-//
-//		before((request, response) -> {
-//			String user = request.queryParams("user");
-//			String password = request.queryParams("password");
-//
-//			String dbPassword = usernamePasswords.get(user);
-//			if (!(password != null && password.equals(dbPassword))) {
-//				halt(401, "You are not welcome here!!!");
-//			}
-//		});
-
-		before("/hello", (request, response) -> {
-			response.header("Foo", "Set by second before filter");
+		get("/", (request, response) -> {
+			return "Hello GET something!";
+		});
+		options("/", (request, response) -> {
+			return "Hello Options are available!";
+		});
+		connect("/", (request, response) -> {
+			return "Hello Connect is allowed!";
+		});
+		trace("/", (request, response) -> {
+			return "Hello Trace it!";
+		});
+		head("/", (request, response) -> {
+			return "Hello Head up!";
+		});
+		patch("/", (request, response) -> {
+			return "Hello Patch extention!";
+		});
+		put("/", (request, response) -> {
+			return "Hello Put goods!";
+		});
+		post("/", (request, response) -> {
+			return "Hello Post message!";
+		});
+		delete("/", (request, response) -> {
+			return "Hello Delete something!";
 		});
 
-		get("/hello", (request, response) -> {
-			return "Hello World!";
-		});
-
-		after("/hello", (request, response) -> {
-			response.header("spark", "added by after-filter");
-		});
 		return 0;
 
 	}
