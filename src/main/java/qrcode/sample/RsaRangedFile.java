@@ -32,13 +32,13 @@ public class RsaRangedFile {
 	private Range originRange;
 	private Range codedRange;
 
-	public void setOriginRange(int o, long l) {
-		assert (o % RsaUtils.RsaOrgBlockSize == 0);
-		originRange = (new Range(o, l));
+	public void setOriginRange(long halflength, long l) {
+		assert (halflength % RsaUtils.RsaOrgBlockSize == 0);
+		originRange = (new Range(halflength, l));
 		codedRange = null;
 	}
 
-	public void setCodedRange(int o, long l) {
+	public void setCodedRange(long o, long l) {
 		assert (o % RsaUtils.RsaSecBlockSize == 0);
 		codedRange = (new Range(o, l));
 		originRange = null;
