@@ -20,7 +20,7 @@ public class RsaUtils {
 	 * @param encrytpByte
 	 * @return
 	 */
-	protected String bytesToString(byte[] encrytpByte) {
+	static protected String bytesToString(byte[] encrytpByte) {
 		String result = "";
 		for (Byte bytes : encrytpByte) {
 			result += (char) bytes.intValue();
@@ -28,8 +28,8 @@ public class RsaUtils {
 		return result;
 	}
 
-	private void assureRead(InputStream i, byte[] originBytes, int offset,
-			int remined) throws IOException {
+	static private void assureRead(InputStream i, byte[] originBytes,
+			int offset, int remined) throws IOException {
 		while (0 < remined) {
 			int read = i.read(originBytes, offset, remined);
 			if (read < 0) {
@@ -48,7 +48,7 @@ public class RsaUtils {
 	 * @param obj
 	 * @return
 	 */
-	protected byte[] encrypt(RSAPublicKey publicKey, byte[] obj) {
+	static protected byte[] encrypt(RSAPublicKey publicKey, byte[] obj) {
 		if (publicKey != null) {
 			try {
 				Cipher cipher = Cipher.getInstance("RSA");
@@ -68,7 +68,7 @@ public class RsaUtils {
 	 * @param obj
 	 * @return
 	 */
-	protected byte[] decrypt(RSAPrivateKey privateKey, byte[] obj) {
+	static protected byte[] decrypt(RSAPrivateKey privateKey, byte[] obj) {
 		if (privateKey != null) {
 			try {
 				Cipher cipher = Cipher.getInstance("RSA");
@@ -88,7 +88,8 @@ public class RsaUtils {
 	 * @param obj
 	 * @return
 	 */
-	protected byte[] encrypt(RSAPublicKey publicKey, File orgin, File secured) {
+	static protected byte[] encrypt(RSAPublicKey publicKey, File orgin,
+			File secured) {
 		if (publicKey != null) {
 			InputStream i = null;
 			FileOutputStream o = null;
@@ -138,7 +139,8 @@ public class RsaUtils {
 	 * @param obj
 	 * @return
 	 */
-	protected byte[] decrypt(RSAPrivateKey privateKey, File secured, File verify) {
+	static protected byte[] decrypt(RSAPrivateKey privateKey, File secured,
+			File verify) {
 		if (privateKey != null) {
 			InputStream i = null;
 			FileOutputStream o = null;

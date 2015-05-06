@@ -84,7 +84,9 @@ public class RsaRangedFile {
 			// System.out.print(", ");
 			// System.out.println(sourcecursor + length);
 			sourceFile.seek(sourcecursor);
+			// int l =
 			sourceFile.read(originBytes, 0, length);
+			// System.out.println("l: " + l);
 			sourcecursor = sourceFile.getFilePointer();
 		}
 		byte[] securedBytes = cipher.doFinal(originBytes, 0, length);
@@ -147,7 +149,8 @@ public class RsaRangedFile {
 		}
 		cipher.init(Cipher.DECRYPT_MODE, privateKey);
 
-		/* set source */sourceFile = codedFile;
+		/* set source */
+		sourceFile = codedFile;
 		sourcecursor = codedRange.offset;
 		sourcesize = codedRange.length;
 		/* set target */

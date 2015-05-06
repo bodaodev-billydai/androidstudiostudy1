@@ -67,13 +67,15 @@ public class RsaUtilsTest extends TestCase {
 
 	/**
 	 * Rigourous Test :-)
-	 * @throws NoSuchAlgorithmException 
+	 * 
+	 * @throws NoSuchAlgorithmException
 	 * 
 	 * @throws IOException
 	 * @throws FormatException
 	 * @throws ChecksumException
 	 */
-	public void singleTestFileEncodDecode(RsaUtils encrypt, String name) throws NoSuchAlgorithmException {
+	public void singleTestFileEncodDecode(RsaUtils encrypt, String name)
+			throws NoSuchAlgorithmException {
 		try {
 			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
 			keyPairGen.initialize(1024);
@@ -93,7 +95,8 @@ public class RsaUtilsTest extends TestCase {
 
 	/**
 	 * Rigourous Test :-)
-	 * @throws NoSuchAlgorithmException 
+	 * 
+	 * @throws NoSuchAlgorithmException
 	 * 
 	 * @throws IOException
 	 * @throws FormatException
@@ -104,9 +107,16 @@ public class RsaUtilsTest extends TestCase {
 				"E:\\testfiles\\sample.txt");
 	}
 
+	private void singleTestFileEncodDecode(QuickRsaUtils quickRsaUtils,
+			String name) {
+		// TODO Auto-generated method stub
+
+	}
+
 	/**
 	 * Rigourous Test :-)
-	 * @throws NoSuchAlgorithmException 
+	 * 
+	 * @throws NoSuchAlgorithmException
 	 * 
 	 * @throws IOException
 	 * @throws FormatException
