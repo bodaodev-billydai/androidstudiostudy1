@@ -11,9 +11,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class QuickRsaUtils {
-	private static final int MAX_BLOCK_SIZE = 10;
-	private static final int MIN_THREAD = 1;
-	private static final int MAX_THREAD = 20;
+	private static final int MAX_BLOCK_SIZE = 10000;
+	private static final int MIN_THREAD = 100;
+	private static final int MAX_THREAD = 600;
 	private static final long KEEP_ALIVE_TIME = 3000;
 	private static final long WAIT_SHUTDOWN_TIME = 300;
 
@@ -24,7 +24,10 @@ public class QuickRsaUtils {
 	private static class EncodeWorker extends Worker {
 		public void run() {
 			try {
+				long s = System.currentTimeMillis();
 				super.encode();
+				System.out.println("encode(" + (System.currentTimeMillis() - s)
+						+ "): " + this.getOriginOffset());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -34,7 +37,10 @@ public class QuickRsaUtils {
 	private static class DecodeWorker extends Worker {
 		public void run() {
 			try {
+				long s = System.currentTimeMillis();
 				super.decode();
+				System.out.println("decode(" + (System.currentTimeMillis() - s)
+						+ "): " + this.getCodedOffset());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -90,9 +96,10 @@ public class QuickRsaUtils {
 			w.setOriginFile(o);
 			w.setCodedFile(c);
 			w.setOriginRange(offset, size);
+			pool.execute(w);
+			System.out.println("queued " + offset + " " + size);
 			offset -= blocksize;
 			size = blocksize;
-			pool.execute(w);
 		}
 		pool.shutdown();
 		try {
@@ -147,9 +154,10 @@ public class QuickRsaUtils {
 			w.setCodedFile(o);
 			w.setOriginFile(c);
 			w.setCodedRange(offset, size);
+			pool.execute(w);
+			System.out.println("queued " + offset + " " + size);
 			offset -= blocksize;
 			size = blocksize;
-			pool.execute(w);
 		}
 		pool.shutdown();
 		try {

@@ -32,6 +32,22 @@ public class RsaRangedFile {
 	private Range originRange;
 	private Range codedRange;
 
+	public long getOriginOffset() {
+		if (originRange != null) {
+			return originRange.offset;
+		} else {
+			return -1;
+		}
+	}
+
+	public long getCodedOffset() {
+		if (codedRange != null) {
+			return codedRange.offset;
+		} else {
+			return -1;
+		}
+	}
+
 	public void setOriginRange(long halflength, long l) {
 		assert (halflength % RsaUtils.RsaOrgBlockSize == 0);
 		originRange = (new Range(halflength, l));
