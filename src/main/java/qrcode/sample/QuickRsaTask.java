@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class QuickRsaTask {
+public class QuickRsaTask implements Runnable {
 
 	public class Range {
 		public Range(long offset2, long length2) {
@@ -34,26 +34,41 @@ public class QuickRsaTask {
 	private static ExecutorService workers;
 
 	private static Vector<QuickRsaTask> todos;
+	private static Integer countWorker = 0;
 
 	// private members
 	private RSAPrivateKey privateKey;
 	private RandomAccessFile readFile;
 	private RandomAccessFile writeFile;
 	LinkedList<Range> range;
+	private boolean done;
 
 	public static QuickRsaTask addTask(RSAPrivateKey privateKey, File secured,
 			File verify) {
 		if (!inited) {
 			init();
 		}
-		String key = privateKey.toString();
-		HashMap<String, WeakReference<QuickRsaTask>> keys = rsaTaskKeys
-				.get(privateKey);
-		if (keys == null) {
-			keys = new HashMap<String, WeakReference<QuickRsaTask>>();
-			rsaTaskKeys.put(privateKey, keys);
-		}
+		debugPrivateKey(privateKey);
 
+		QuickRsaTask worker = getWorker(privateKey, secured, verify);
+		if (worker != null) {
+			worker.setDone(false);
+			todos.add(worker);
+			tryWorkOn();
+		}
+		return worker;
+	}
+
+	private static synchronized void tryWorkOn() {
+		QuickRsaTask worker = todos.firstElement();
+		if (worker != null) {
+			workers.submit(worker);
+		}
+	}
+
+	private static QuickRsaTask getWorker(RSAPrivateKey privateKey,
+			File secured, File verify) {
+		HashMap<String, WeakReference<QuickRsaTask>> keys = getKeyMap(privateKey);
 		String iname = secured.getAbsolutePath();
 		String oname = verify.getAbsolutePath();
 
@@ -76,6 +91,7 @@ public class QuickRsaTask {
 				todos.add(worker);
 			} catch (IOException e) {
 				worker = null;
+				worker = null;
 				if (i != null) {
 					try {
 						i.close();
@@ -90,7 +106,25 @@ public class QuickRsaTask {
 				}
 			}
 		}
-		return null;
+		return worker;
+	}
+
+	private static void debugPrivateKey(RSAPrivateKey privateKey) {
+		String key = privateKey.toString();
+		byte[] keyBytes = privateKey.getEncoded();
+		System.out.println("key: " + key);
+		System.out.println("key bytes: " + keyBytes);
+	}
+
+	private static HashMap<String, WeakReference<QuickRsaTask>> getKeyMap(
+			RSAPrivateKey privateKey) {
+		HashMap<String, WeakReference<QuickRsaTask>> keys = rsaTaskKeys
+				.get(privateKey);
+		if (keys == null) {
+			keys = new HashMap<String, WeakReference<QuickRsaTask>>();
+			rsaTaskKeys.put(privateKey, keys);
+		}
+		return keys;
 	}
 
 	private void setCake(int i, long length) {
@@ -128,5 +162,31 @@ public class QuickRsaTask {
 		rsaTaskKeys = new HashMap<RSAPrivateKey, HashMap<String, WeakReference<QuickRsaTask>>>();
 		workers = Executors.newFixedThreadPool(100);
 		todos = new Vector<QuickRsaTask>();
+	}
+
+	public void run() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		setDone(true);
+	}
+
+	private synchronized void setDone(boolean newState) {
+		done = newState;
+	}
+
+	public boolean waitDone() {
+		for (; !done;) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return true;
 	}
 }

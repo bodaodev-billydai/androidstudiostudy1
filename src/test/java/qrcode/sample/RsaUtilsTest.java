@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
@@ -66,12 +67,13 @@ public class RsaUtilsTest extends TestCase {
 
 	/**
 	 * Rigourous Test :-)
+	 * @throws NoSuchAlgorithmException 
 	 * 
 	 * @throws IOException
 	 * @throws FormatException
 	 * @throws ChecksumException
 	 */
-	public void singleTestFileEncodDecode(RsaUtils encrypt, String name) {
+	public void singleTestFileEncodDecode(RsaUtils encrypt, String name) throws NoSuchAlgorithmException {
 		try {
 			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
 			keyPairGen.initialize(1024);
@@ -84,8 +86,6 @@ public class RsaUtilsTest extends TestCase {
 			File verify = new File(name + ".ver");
 			encrypt.encrypt(publicKey, origin, secured);
 			encrypt.decrypt(privateKey, secured, verify);
-		} catch (Exception e) {
-			// e.printStackTrace();
 		} finally {
 			System.out.println(name);
 		}
@@ -93,24 +93,26 @@ public class RsaUtilsTest extends TestCase {
 
 	/**
 	 * Rigourous Test :-)
+	 * @throws NoSuchAlgorithmException 
 	 * 
 	 * @throws IOException
 	 * @throws FormatException
 	 * @throws ChecksumException
 	 */
-	public void testFileEncodDecode1() {
+	public void testFileEncodDecode1() throws NoSuchAlgorithmException {
 		singleTestFileEncodDecode(new QuickRsaUtils(),
 				"E:\\testfiles\\sample.txt");
 	}
 
 	/**
 	 * Rigourous Test :-)
+	 * @throws NoSuchAlgorithmException 
 	 * 
 	 * @throws IOException
 	 * @throws FormatException
 	 * @throws ChecksumException
 	 */
-	public void testFileEncodDecode2() {
+	public void testFileEncodDecode2() throws NoSuchAlgorithmException {
 		singleTestFileEncodDecode(new QuickRsaUtils(),
 				"E:\\testfiles\\sample2.txt");
 	}

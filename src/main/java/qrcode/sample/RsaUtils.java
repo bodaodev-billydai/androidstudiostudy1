@@ -11,8 +11,8 @@ import java.security.interfaces.RSAPublicKey;
 import javax.crypto.Cipher;
 
 public class RsaUtils {
-	static final int RsaOrgBlockSize = 117;
-	static final int RsaSecBlockSize = 128;
+	public static final int RsaOrgBlockSize = 117;
+	public static final int RsaSecBlockSize = 128;
 
 	/**
 	 * byte数组转为string
