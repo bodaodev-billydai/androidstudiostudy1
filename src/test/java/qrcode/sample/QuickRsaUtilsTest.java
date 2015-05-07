@@ -73,14 +73,8 @@ public class QuickRsaUtilsTest extends TestCase {
 	// }
 	// }
 
-	/**
-	 * Rigourous Test :-)
-	 * 
-	 * @throws IOException
-	 * @throws FormatException
-	 * @throws ChecksumException
-	 */
-	public void testQuickEncodDecode() {
+	private void aQuickEncodDecode(String testOriginFile, String testCodedFile,
+			String testVerifyFile) {
 		try {
 			/* prepare key pair */
 			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
@@ -91,9 +85,6 @@ public class QuickRsaUtilsTest extends TestCase {
 			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic(); // ¹«Ô¿
 
 			/* test it */
-			String testOriginFile = "e:\\testfiles\\sampleAB.txt";
-			String testCodedFile = "e:\\testfiles\\sampleAB.txt.sec";
-			String testVerifyFile = "e:\\testfiles\\sampleAB.txt.ver";
 
 			QuickRsaUtils encoder = new QuickRsaUtils();
 			File orgin = new File(testOriginFile);
@@ -107,6 +98,34 @@ public class QuickRsaUtilsTest extends TestCase {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void testQuickEncodDecode1() {
+		aQuickEncodDecode("e:\\testfiles\\sampleAB1.txt",
+				"e:\\testfiles\\sampleAB1.txt.sec",
+				"e:\\testfiles\\sampleAB1.txt.ver");
+
+	}
+
+	public void testQuickEncodDecode2() {
+		aQuickEncodDecode("e:\\testfiles\\sampleAB2.txt",
+				"e:\\testfiles\\sampleAB2.txt.sec",
+				"e:\\testfiles\\sampleAB2.txt.ver");
+
+	}
+
+	public void testQuickEncodDecode3() {
+		aQuickEncodDecode("e:\\testfiles\\sampleAB3.txt",
+				"e:\\testfiles\\sampleAB3.txt.sec",
+				"e:\\testfiles\\sampleAB3.txt.ver");
+
+	}
+
+	public void testQuickEncodDecode4() {
+		aQuickEncodDecode("e:\\testfiles\\sampleAB4.txt",
+				"e:\\testfiles\\sampleAB4.txt.sec",
+				"e:\\testfiles\\sampleAB4.txt.ver");
+
 	}
 
 }
